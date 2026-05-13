@@ -5,67 +5,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const roleSection = document.getElementById('role-section');
     const loginForm = document.getElementById('login-form');
 
-    // 1. Logic Splash Screen
+    // 1. Splash Screen Timer (2 Detik)
     setTimeout(() => {
-        splash.classList.add('opacity-0', 'transition', 'duration-500');
+        splash.classList.add('opacity-0');
         setTimeout(() => {
             splash.style.display = 'none';
-            if (appContent) appContent.classList.remove('hidden');
+            appContent.classList.remove('hidden');
         }, 500);
     }, 2000);
 
-    // 2. Logic Login Form
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (email && password) {
-                const btn = loginForm.querySelector('button');
-                btn.innerHTML = '<i class="fas fa-circle-notch animate-spin"></i>';
-                
-                setTimeout(() => {
-                    loginSection.classList.add('hidden');
-                    roleSection.classList.remove('hidden');
-                }, 1000);
-            } else {
-                alert('Silakan isi email dan password');
-            }
-        });
-    }
+    // 2. Simulasi Login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        loginSection.classList.add('hidden');
+        roleSection.classList.remove('hidden');
+    });
 });
 
-// 3. Logic Pilih Role
+// 3. Fungsi Pilih Role
 function selectRole(role) {
-    if (role === 'customer') {
-        document.getElementById('role-section').classList.add('hidden');
-        document.getElementById('customer-main').classList.remove('hidden');
-        showPage('home');
-    } else {
-        alert('Modul untuk ' + role.toUpperCase() + ' sedang dikembangkan!');
-    }
+    document.getElementById('role-section').classList.add('hidden');
+    document.getElementById('main-interface').classList.remove('hidden');
+    showPage('home'); // Buka halaman home secara otomatis
 }
 
-// 4. Fungsi Navigasi Internal Customer
+// 4. Fungsi Navigasi Menu Bawah (Home, Search, Orders, Profile)
 function showPage(pageId) {
-    const pages = ['home', 'search', 'order'];
+    const pages = ['home', 'search', 'order', 'profile'];
+    
     pages.forEach(p => {
+        // Sembunyikan semua halaman
         const pageEl = document.getElementById('page-' + p);
-        const navBtn = document.getElementById('nav-' + p);
+        if(pageEl) pageEl.classList.add('hidden');
         
-        if (pageEl) pageEl.classList.add('hidden');
-        if (navBtn) {
+        // Matikan warna semua icon di navigasi
+        const navBtn = document.getElementById('nav-' + p);
+        if(navBtn) {
             navBtn.classList.remove('text-indigo-600');
             navBtn.classList.add('text-gray-300');
         }
     });
 
+    // Tampilkan halaman yang dipilih
     const activePage = document.getElementById('page-' + pageId);
-    const activeNav = document.getElementById('nav-' + pageId);
+    if(activePage) activePage.classList.remove('hidden');
     
-    if (activePage) activePage.classList.remove('hidden');
-    if (activeNav) {
+    // Nyalakan warna icon yang aktif
+    const activeNav = document.getElementById('nav-' + pageId);
+    if(activeNav) {
         activeNav.classList.remove('text-gray-300');
         activeNav.classList.add('text-indigo-600');
     }
