@@ -37,13 +37,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 3. Logic Pilih Role
+// Tambahkan di fungsi selectRole
 function selectRole(role) {
-    console.log("Role terpilih:", role);
-    // Simpan role ke localStorage atau state Firebase
-    localStorage.setItem('userRole', role);
+    if(role === 'customer') {
+        document.getElementById('role-section').classList.add('hidden');
+        document.getElementById('customer-main').classList.remove('hidden');
+        showPage('home');
+    } else {
+        alert('Modul untuk ' + role.toUpperCase() + ' sedang dikembangkan!');
+    }
+}
+
+// Fungsi Navigasi Internal Customer
+function showPage(pageId) {
+    // Sembunyikan semua halaman
+    const pages = ['home', 'search', 'order'];
+    pages.forEach(p => {
+        document.getElementById('page-' + p).classList.add('hidden');
+        // Reset warna icon di nav
+        const navBtn = document.getElementById('nav-' + p);
+        if(navBtn) {
+            navBtn.classList.remove('text-indigo-600');
+            navBtn.classList.add('text-gray-300');
+        }
+    });
+
+    // Tampilkan halaman terpilih
+    document.getElementById('page-' + pageId).classList.remove('hidden');
     
-    // Redirect ke halaman utama sesuai role
-    alert('Kamu masuk sebagai ' + role.toUpperCase());
-    // window.location.href = 'home-' + role + '.html';
+    // Aktifkan icon di nav
+    const activeNav = document.getElementById('nav-' + pageId);
+    if(activeNav) {
+        activeNav.classList.remove('text-gray-300');
+        activeNav.classList.add('text-indigo-600');
+    }
+}
+// Paste di baris paling bawah sendiri
+function showPage(pageId) {
+    const pages = ['home', 'search', 'order'];
+    ... (dan seterusnya sampai selesai)
 }
