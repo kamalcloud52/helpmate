@@ -7,106 +7,99 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .bg-gradient-helpmate {
+            background: linear-gradient(135deg, #6D28D9 0%, #DB2777 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-gray-800">
 
-    <div id="splash-screen" class="fixed inset-0 bg-gradient-to-br from-indigo-600 to-purple-500 flex flex-col items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-3xl shadow-2xl mb-4">
-            <i class="fas fa-handshake text-5xl text-indigo-600"></i>
-        </div>
-        <h1 class="text-white text-3xl font-bold tracking-tight">HelpMate</h1>
-        <p class="text-indigo-100 mt-2">we're ready to help</p>
-    </div>
-
-    <main id="app-content" class="hidden max-w-md mx-auto min-h-screen bg-white shadow-xl relative overflow-hidden">
+    <div id="app-container" class="min-h-screen flex items-center justify-center p-4">
         
-        <section id="login-section" class="p-8 pt-20 fade-in">
-            <div class="mb-10 text-center">
-                <h2 class="text-3xl font-bold text-gray-800">Hi, Mate!</h2>
-                <p class="text-gray-500 mt-2">Silakan masuk untuk melanjutkan</p>
+        <section id="view-splash" class="w-full max-w-md text-center">
+            <div class="bg-gradient-helpmate w-32 h-32 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg transform rotate-12">
+                <i class="fas fa-handshake text-white text-5xl -rotate-12"></i>
             </div>
-            <form id="login-form" class="space-y-5">
-                <input type="email" id="email" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Email" required>
-                <input type="password" id="password" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password" required>
-                <button type="submit" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-lg transition active:scale-95">LOGIN</button>
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-700 to-pink-600 mb-2">HelpMate</h1>
+            <p class="text-gray-500 font-medium mb-12">We're ready to help</p>
+            <button onclick="showView('view-login')" class="bg-gradient-helpmate text-white px-10 py-4 rounded-2xl font-bold shadow-xl hover:scale-105 transition-all w-full">
+                Mulai Sekarang
+            </button>
+        </section>
+
+        <section id="view-login" class="hidden w-full max-w-md glass-card p-8 rounded-[2.5rem] shadow-2xl border-t-4 border-purple-500">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Hi, Mate! 👋</h2>
+                <p class="text-gray-500">Silakan masuk untuk melanjutkan</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 ml-1">Email</label>
+                    <input type="email" class="w-full px-5 py-4 rounded-2xl bg-gray-100 border-none focus:ring-2 focus:ring-purple-500 transition-all" placeholder="name@email.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2 ml-1">Password</label>
+                    <input type="password" class="w-full px-5 py-4 rounded-2xl bg-gray-100 border-none focus:ring-2 focus:ring-purple-500 transition-all" placeholder="••••••••">
+                </div>
+                <div class="text-right">
+                    <a href="#" class="text-sm font-bold text-purple-600 hover:text-pink-600">Lupa Password?</a>
+                </div>
+                <button type="button" onclick="showView('view-role')" class="w-full bg-gradient-helpmate text-white py-4 rounded-2xl font-bold shadow-lg mt-4">
+                    LOGIN
+                </button>
             </form>
-        </section>
-
-        <section id="role-section" class="hidden p-8 pt-12 fade-in">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Pilih peranmu hari ini</h2>
-            <div class="grid gap-4">
-                <button onclick="selectRole('customer')" class="flex items-center p-5 border-2 border-gray-100 rounded-2xl hover:border-indigo-500 transition text-left">
-                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mr-4"><i class="fas fa-user"></i></div>
-                    <div><h3 class="font-bold">CUSTOMER</h3><p class="text-xs text-gray-500">Pesan jasa apa saja.</p></div>
-                </button>
-                <button onclick="selectRole('helper')" class="flex items-center p-5 border-2 border-gray-100 rounded-2xl hover:border-rose-500 transition text-left">
-                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mr-4"><i class="fas fa-hands-helping"></i></div>
-                    <div><h3 class="font-bold">HELPER</h3><p class="text-xs text-gray-500">Bantu sesama & hasilkan uang.</p></div>
-                </button>
-                <button onclick="selectRole('shopper')" class="flex items-center p-5 border-2 border-gray-100 rounded-2xl hover:border-amber-500 transition text-left">
-                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mr-4"><i class="fas fa-shopping-bag"></i></div>
-                    <div><h3 class="font-bold">PERSONAL SHOPPER</h3><p class="text-xs text-gray-500">Jasa belanja profesional.</p></div>
-                </button>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-500">Belum punya akun? <a href="#" class="text-purple-600 font-bold">Daftar</a></p>
             </div>
         </section>
 
-        <div id="main-interface" class="hidden h-screen flex flex-col">
-            <div id="pages-container" class="flex-1 overflow-y-auto pb-24">
-                
-                <div id="page-home" class="p-6 space-y-6 fade-in">
-                    <h3 class="font-bold text-gray-800">Kategori Jasa</h3>
-                    <div class="grid grid-cols-4 gap-4">
-                        <div class="flex flex-col items-center"><div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-1"><i class="fas fa-utensils"></i></div><span class="text-[10px] font-bold">FOOD</span></div>
-                        <div class="flex flex-col items-center"><div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-1"><i class="fas fa-shopping-cart"></i></div><span class="text-[10px] font-bold">SHOP</span></div>
-                        <div class="flex flex-col items-center"><div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-1"><i class="fas fa-broom"></i></div><span class="text-[10px] font-bold">CLEAN</span></div>
-                        <div class="flex flex-col items-center"><div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-1"><i class="fas fa-ellipsis-h"></i></div><span class="text-[10px] font-bold">MORE</span></div>
+        <section id="view-role" class="hidden w-full max-w-md">
+            <h2 class="text-2xl font-bold text-center mb-2">Pilih Peranmu</h2>
+            <p class="text-gray-500 text-center mb-8">Sesuaikan bagaimana kamu ingin menggunakan HelpMate hari ini</p>
+            
+            <div class="space-y-4">
+                <div onclick="selectRole('customer')" class="glass-card p-6 rounded-3xl border-2 border-transparent hover:border-purple-500 cursor-pointer transition-all group flex items-center gap-5 shadow-sm hover:shadow-xl">
+                    <div class="bg-purple-100 p-4 rounded-2xl group-hover:bg-purple-600 group-hover:text-white transition-all">
+                        <i class="fas fa-shopping-basket text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Customer</h3>
+                        <p class="text-sm text-gray-500 italic">Pesan jasa apa saja, di mana saja.</p>
                     </div>
                 </div>
 
-                <div id="page-search" class="hidden p-6 fade-in">
-                    <input type="text" class="w-full bg-gray-100 p-4 rounded-2xl outline-none" placeholder="Cari Helper...">
-                </div>
-
-                <div id="page-order" class="hidden p-6 fade-in">
-                    <h3 class="font-bold mb-4">Pesanan Aktif</h3>
-                    <div class="bg-white border-2 border-indigo-50 p-5 rounded-3xl shadow-sm">
-                        <p class="text-[10px] font-bold text-amber-600 mb-2 uppercase tracking-tighter">Dalam Proses</p>
-                        <h4 class="font-bold text-gray-800">Belanja di Pasar Baru</h4>
-                        <button class="w-full mt-4 py-3 bg-indigo-50 text-indigo-600 font-bold rounded-xl text-sm">Lacak Lokasi</button>
+                <div onclick="selectRole('helper')" class="glass-card p-6 rounded-3xl border-2 border-transparent hover:border-pink-500 cursor-pointer transition-all group flex items-center gap-5 shadow-sm hover:shadow-xl">
+                    <div class="bg-pink-100 p-4 rounded-2xl group-hover:bg-pink-600 group-hover:text-white transition-all">
+                        <i class="fas fa-hands-helping text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Helper</h3>
+                        <p class="text-sm text-gray-500 italic">Bantu orang dan dapatkan penghasilan.</p>
                     </div>
                 </div>
 
-                <div id="page-profile" class="hidden p-8 flex flex-col items-center fade-in">
-                    <div class="w-24 h-24 bg-indigo-100 rounded-full mb-4 border-4 border-white shadow-lg overflow-hidden">
-                        <img src="https://ui-avatars.com/api/?name=Kamal&background=4f46e5&color=fff" alt="Avatar">
+                <div onclick="selectRole('personal-shopper')" class="glass-card p-6 rounded-3xl border-2 border-transparent hover:border-orange-500 cursor-pointer transition-all group flex items-center gap-5 shadow-sm hover:shadow-xl">
+                    <div class="bg-orange-100 p-4 rounded-2xl group-hover:bg-orange-600 group-hover:text-white transition-all">
+                        <i class="fas fa-store text-2xl"></i>
                     </div>
-                    <h2 class="text-xl font-bold">Kamal</h2>
-                    <p class="text-indigo-600 text-sm mb-8">Verified Member</p>
-                    <button onclick="location.reload()" class="w-full p-4 bg-rose-50 text-rose-600 rounded-2xl font-bold">LOGOUT</button>
+                    <div>
+                        <h3 class="font-bold text-lg">Personal Shopper</h3>
+                        <p class="text-sm text-gray-500 italic">Jasa titip belanja profesional.</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-100 flex justify-around p-4 rounded-t-[32px] shadow-2xl z-40">
-                <button onclick="showPage('home')" id="nav-home" class="nav-btn text-indigo-600 flex flex-col items-center">
-                    <i class="fas fa-home text-xl mb-1"></i><span class="text-[9px] font-bold">HOME</span>
-                </button>
-                <button onclick="showPage('search')" id="nav-search" class="nav-btn text-gray-300 flex flex-col items-center">
-                    <i class="fas fa-search text-xl mb-1"></i><span class="text-[9px] font-bold">SEARCH</span>
-                </button>
-                <button onclick="showPage('order')" id="nav-order" class="nav-btn text-gray-300 flex flex-col items-center">
-                    <i class="fas fa-receipt text-xl mb-1"></i><span class="text-[9px] font-bold">ORDERS</span>
-                </button>
-                <button onclick="showPage('profile')" id="nav-profile" class="nav-btn text-gray-300 flex flex-col items-center">
-                    <i class="fas fa-user text-xl mb-1"></i><span class="text-[9px] font-bold">PROFILE</span>
-                </button>
-            </nav>
-        </div>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
